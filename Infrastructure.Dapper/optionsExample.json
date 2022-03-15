@@ -1,0 +1,6 @@
+﻿{
+  "optionsDB": {
+    "ConnectionString": "Server=.\\sqlexpress;Database=databaseName;User Id=username;Password=password",
+    "Provider": "SqlServer"
+  }
+}

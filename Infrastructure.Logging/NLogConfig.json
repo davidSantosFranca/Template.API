@@ -1,0 +1,79 @@
+{
+  "NLog": {
+    "autoReload": true,
+    "throwConfigExceptions": true,
+    "internalLogLevel": "Info",
+    "internalLogFile": "${basedir}/log/internal-nlog.txt",
+    "targets": {
+      "log-file": {
+        "type": "File",
+        "fileName": "${basedir}/log/${shortdate}.log",
+        "archiveFileName": "${basedir}/log/archive/${shortdate}-{##}.log",
+        "archiveEvery": "Day",
+        "concurrentWrites": "true",
+        "archiveDateFormat": "dd-MM-yyyy",
+        "archiveNumbering": "DateAndSequence",
+        "maxArchiveFiles": "32",
+        "layout": "[${longdate}] - ${level} - Message: ${message} - ${exception:format=type,message,StackTrace}"
+      },
+      "console": {
+        "type": "ColoredConsole",
+        "layout": "${level}: ${message}",
+        "rowHighlightingRules": [
+          {
+            "condition": "1 == 1",
+            "foregroundColor": "Gray"
+          }
+        ],
+        "wordHighlightingRules": [
+          {
+            "foregroundColor": "Gray"
+          },
+          {
+            "condition": "level == LogLevel.Fatal",
+            "foregroundColor": "White",
+            "backgroundColor": "Red",
+            "text": "Fatal"
+
+          },
+          {
+            "condition": "level == LogLevel.Error",
+            "foregroundColor": "White",
+            "backgroundColor": "Red",
+            "text": "Error"
+          },
+
+          {
+            "condition": "level == LogLevel.Warn",
+            "foregroundColor": "Yellow",
+            "text": "Warning"
+          },
+          {
+            "condition": "level == LogLevel.Info",
+            "foregroundColor": "Green",
+            "text": "Info"
+          },
+          {
+            "condition": "level == LogLevel.Debug",
+            "foregroundColor": "Black",
+            "backgroundColor": "Gray",
+            "text": "Debug"
+          }
+        ]
+
+      }
+    },
+    "rules": [
+      {
+        "logger": "*",
+        "minLevel": "Info",
+        "writeTo": "log-file"
+      },
+      {
+        "logger": "*",
+        "minLevel": "Trace",
+        "writeTo": "console"
+      }
+    ]
+  }
+}
